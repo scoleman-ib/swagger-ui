@@ -15,19 +15,28 @@ export default class ServersContainer extends React.Component {
 
     const servers = specSelectors.servers()
 
+    const Col = getComponent("Col")
     const Servers = getComponent("Servers")
 
-    return servers && servers.size ? (
+    return (
       <div>
-        <span className="servers-title">Servers</span>
-        <Servers
-          servers={servers}
-          currentServer={oas3Selectors.selectedServer()}
-          setSelectedServer={oas3Actions.setSelectedServer}
-          setServerVariableValue={oas3Actions.setServerVariableValue}
-          getServerVariable={oas3Selectors.serverVariableValue}
-          getEffectiveServerValue={oas3Selectors.serverEffectiveValue}
-        />
-      </div> ) : null
+        {servers && servers.size ? (
+          <div className="global-server-container">
+            <Col className="servers wrapper" mobile={12}>
+              <span className="servers-title">Server</span>
+              <Servers
+                servers={servers}
+                currentServer={oas3Selectors.selectedServer()}
+                setSelectedServer={oas3Actions.setSelectedServer}
+                setServerVariableValue={oas3Actions.setServerVariableValue}
+                getServerVariable={oas3Selectors.serverVariableValue}
+                getEffectiveServerValue={oas3Selectors.serverEffectiveValue}
+              />
+            </Col>
+          </div>
+
+        ) : null}
+      </div>
+    )
   }
 }

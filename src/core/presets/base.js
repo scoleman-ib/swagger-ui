@@ -18,7 +18,6 @@ import OperationContainer from "core/containers/OperationContainer"
 import App from "core/components/app"
 import AuthorizationPopup from "core/components/auth/authorization-popup"
 import AuthorizeBtn from "core/components/auth/authorize-btn"
-import AuthorizeBtnContainer from "core/containers/authorize-btn"
 import AuthorizeOperationBtn from "core/components/auth/authorize-operation-btn"
 import Auths from "core/components/auth/auths"
 import AuthItem from "core/components/auth/auth-item"
@@ -55,6 +54,7 @@ import Info, {
   InfoBasePath
 } from "core/components/info"
 import InfoContainer from "core/containers/info"
+import AppsContainer from "core/containers/available-container"
 import JumpToPath from "core/components/jump-to-path"
 import Footer from "core/components/footer"
 import FilterContainer from "core/containers/filter"
@@ -82,6 +82,8 @@ import Markdown from "core/components/providers/markdown"
 
 import BaseLayout from "core/components/layouts/base"
 
+import AvailableApps from "core/components/available-apps"
+
 import * as LayoutUtils from "core/components/layout-utils"
 import * as JsonSchemaComponents from "core/json-schema-components"
 
@@ -92,7 +94,6 @@ export default function() {
       App,
       authorizationPopup: AuthorizationPopup,
       authorizeBtn: AuthorizeBtn,
-      AuthorizeBtnContainer,
       authorizeOperationBtn: AuthorizeOperationBtn,
       auths: Auths,
       AuthItem: AuthItem,
@@ -152,7 +153,8 @@ export default function() {
       DeepLink,
       InfoUrl,
       InfoBasePath,
-      SvgAssets
+      SvgAssets,
+      AvailableApps
     }
   }
 

@@ -31,7 +31,7 @@ export default class ParameterRow extends Component {
     let { specSelectors, pathMethod, rawParam } = props
     let { isOAS3 } = specSelectors
 
-    let parameterWithMeta = specSelectors.parameterWithMetaByIdentity(pathMethod, rawParam) || new Map()
+    let parameterWithMeta = specSelectors.parameterWithMetaByIdentity(pathMethod, rawParam)
     // fallback, if the meta lookup fails
     parameterWithMeta = parameterWithMeta.isEmpty() ? rawParam : parameterWithMeta
 
@@ -87,7 +87,7 @@ export default class ParameterRow extends Component {
     let paramWithMeta = specSelectors.parameterWithMetaByIdentity(pathMethod, rawParam)
 
 
-    if (!paramWithMeta || paramWithMeta.get("value") !== undefined) {
+    if (paramWithMeta.get("value") !== undefined) {
       return
     }
 
@@ -117,10 +117,6 @@ export default class ParameterRow extends Component {
 
     const { showExtensions, showCommonExtensions } = getConfigs()
 
-    if(!param) {
-      param = rawParam
-    }
-
     // const onChangeWrapper = (value) => onChange(param, value)
     const JsonSchemaForm = getComponent("JsonSchemaForm")
     const ParamBody = getComponent("ParamBody")
@@ -129,7 +125,7 @@ export default class ParameterRow extends Component {
       : <ParamBody getComponent={getComponent}
                    fn={fn}
                    param={param}
-                   consumes={ specSelectors.consumesOptionsFor(pathMethod) }
+                   consumes={ specSelectors.operationConsumes(pathMethod) }
                    consumesValue={ specSelectors.contentTypeValues(pathMethod).get("requestContentType") }
                    onChange={this.onChangeWrapper}
                    onChangeConsumes={onChangeConsumes}

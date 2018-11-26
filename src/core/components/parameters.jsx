@@ -29,7 +29,7 @@ export default class Parameters extends Component {
     onTryoutClick: Function.prototype,
     onCancelClick: Function.prototype,
     tryItOutEnabled: false,
-    allowTryItOut: true,
+    allowTryItOut: false,
     onChangeKey: [],
     specPath: [],
   }
@@ -65,7 +65,7 @@ export default class Parameters extends Component {
       fn,
       getComponent,
       getConfigs,
-      specSelectors, 
+      specSelectors,
       specActions,
       pathMethod
     } = this.props
@@ -73,7 +73,8 @@ export default class Parameters extends Component {
     const ParameterRow = getComponent("parameterRow")
     const TryItOutButton = getComponent("TryItOutButton")
 
-    const isExecute = tryItOutEnabled && allowTryItOut
+    const isExecute = false
+    allowTryItOut = false
 
     return (
       <div className="opblock-section">

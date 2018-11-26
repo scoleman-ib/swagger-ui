@@ -69,12 +69,11 @@ export default class Topbar extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const configs = this.props.getConfigs()
     const urls = configs.urls || []
 
     if(urls && urls.length) {
-      this.loadSpec(urls[this.state.selectedIndex].url)
       let primaryName = configs["urls.primaryName"]
       if(primaryName)
       {
@@ -85,6 +84,14 @@ export default class Topbar extends React.Component {
             }
         })
       }
+    }
+  }
+
+  componentDidMount() {
+    const urls = this.props.getConfigs().urls || []
+
+    if(urls && urls.length) {
+      this.loadSpec(urls[this.state.selectedIndex].url)
     }
   }
 
@@ -137,9 +144,6 @@ export default class Topbar extends React.Component {
               <img height="30" width="30" src={ Logo } alt="Swagger UI"/>
               <span>swagger</span>
             </Link>
-            <form className="download-url-wrapper" onSubmit={formOnSubmit}>
-              {control.map((el, i) => cloneElement(el, { key: i }))}
-            </form>
           </div>
         </div>
       </div>
