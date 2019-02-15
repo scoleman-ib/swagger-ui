@@ -141,7 +141,7 @@ export default class Topbar extends React.Component {
         <div className="wrapper">
           <div className="topbar-wrapper">
             <Link>
-              <img height="30" width="30" src={ Logo } alt="Swagger UI"/>
+              <img height="30" width="105" src={ Logo } alt="Swagger UI"/>
               <span>swagger</span>
             </Link>
           </div>

@@ -4,9 +4,10 @@ set -e
 
 BASE_URL=${BASE_URL:-/}
 NGINX_ROOT=/usr/share/nginx/html
-INDEX_FILE=$NGINX_ROOT/swagdocs/index.html
-BUNDLE_FILE=$NGINX_ROOT/swagdocs/swagger-ui-bundle.js
-MAP_FILE=$NGINX_ROOT/swagdocs/swagger-ui-bundle.js.map
+INDEX_FILE=$NGINX_ROOT/ENDPOINT/index.html
+BUNDLE_FILE=$NGINX_ROOT/ENDPOINT/swagger-ui-bundle.js
+MAP_FILE=$NGINX_ROOT/ENDPOINT/swagger-ui-bundle.js.map
+NGINX_FILE=/etc/nginx/nginx.conf
 
 replace_in_index () {
   if [ "$1" != "**None**" ]; then
@@ -62,15 +63,19 @@ fi
 
 # replace the PORT that nginx listens on if PORT is supplied
 if [[ -n "${API_ENDPOINT}" ]]; then
-    sed -i "s|/ENDPOINT/apidocs|${API_ENDPOINT}/apidocs|g" $BUNDLE_FILE
-    sed -i "s|/ENDPOINT/apidocs|${API_ENDPOINT}/apidocs|g" $MAP_FILE
+    sed -i "s|/ENDPOINT/docs|${API_ENDPOINT}/docs|g" $BUNDLE_FILE
+    sed -i "s|/ENDPOINT/docs|${API_ENDPOINT}/docs|g" $MAP_FILE
     sed -i "s|/ENDPOINT/?url|${API_ENDPOINT}/?url|g" $BUNDLE_FILE
     sed -i "s|/ENDPOINT/?url|${API_ENDPOINT}/?url|g" $MAP_FILE
+    sed -i "s|/ENDPOINT|${API_ENDPOINT}|g" $INDEX_FILE
+    sed -i "s|/ENDPOINT|${API_ENDPOINT}|g" $NGINX_FILE
 else
-    sed -i "s|/ENDPOINT/apidocs|/apidocs|g" $BUNDLE_FILE
-    sed -i "s|/ENDPOINT/apidocs|/apidocs|g" $MAP_FILE
+    sed -i "s|/ENDPOINT/docs|/docs|g" $BUNDLE_FILE
+    sed -i "s|/ENDPOINT/docs|/docs|g" $MAP_FILE
     sed -i "s|/ENDPOINT/?url|?url|g" $BUNDLE_FILE
     sed -i "s|/ENDPOINT/?url|?url|g" $MAP_FILE
+    sed -i "s|/ENDPOINT||g" $INDEX_FILE
+    sed -i "s|/ENDPOINT||g" $NGINX_FILE
 fi
 
 if [[ -n "${HIDE_API_TAG_NAME}" ]]; then
@@ -83,7 +88,9 @@ if [[ -n "${PORT}" ]]; then
     sed -i "s|8080|${PORT}|g" /etc/nginx/nginx.conf
 fi
 
-cp $BUNDLE_FILE $NGINX_ROOT/swagdocs/swagdocs/swagger-ui-bundle.js
-cp $MAP_FILE $NGINX_ROOT/swagdocs/swagdocs/swagger-ui-bundle.js.map
+mv $NGINX_ROOT/ENDPOINT/ $NGINX_ROOT${API_ENDPOINT}/
+mv $NGINX_ROOT${API_ENDPOINT}/ENDPOINT/ $NGINX_ROOT${API_ENDPOINT}${API_ENDPOINT}/
+cp $NGINX_ROOT${API_ENDPOINT}/swagger-ui-bundle.js $NGINX_ROOT${API_ENDPOINT}${API_ENDPOINT}/swagger-ui-bundle.js
+cp $NGINX_ROOT${API_ENDPOINT}/swagger-ui-bundle.js.map $NGINX_ROOT${API_ENDPOINT}${API_ENDPOINT}/swagger-ui-bundle.js.map
 
 exec nginx -g 'daemon off;'

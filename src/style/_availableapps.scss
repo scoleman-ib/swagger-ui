@@ -10,15 +10,18 @@
             font-size: 12px;
         }
     }
+
     p, li, table
     {
         font-size: 14px;
-
+        list-style-type: none;
         @include text_body();
     }
 
     h1, h2, h3, h4, h5
     {
+        font-size: 30px;
+
         @include text_body();
     }
 
@@ -35,6 +38,8 @@
     a
     {
         font-size: 14px;
+
+        text-decoration: none;
 
         transition: all .4s;
 

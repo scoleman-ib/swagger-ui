@@ -19,7 +19,7 @@ export default class AvailableApps extends React.Component {
 
   async getAppList() {
     if (this.state.apps[0] == "loading...") {
-      fetch('/ENDPOINT/apidocs/list/allapps', { method: "GET", headers: {"Accept": "application/json"}}).then(resp => resp.json()).then(res => this.setState({apps: res.apps}));
+      fetch('/ENDPOINT/docs/list/allapps', { method: "GET", headers: {"Accept": "application/json"}}).then(resp => resp.json()).then(res => this.setState({apps: res.apps}));
       console.log(this.state.apps);
     }
   }
@@ -31,18 +31,18 @@ export default class AvailableApps extends React.Component {
     if (this.state.apps[0] == "loading...") {
       return (
       <div className="availableapps">
-        <h1>Available Apps</h1>
+        <h1>BloxOne API</h1>
             <li>loading...</li>
       </div>
       )
     }
     const listItems = this.state.apps.map((name) =>
-          <li><a href={domain +'/ENDPOINT/?url=' + domain + '/ENDPOINT/apidocs/'+ name}>{name}</a></li>);
+          <li><a href={domain +'/ENDPOINT/?url=' + domain + '/ENDPOINT/docs/'+ name}>{name}</a></li>);
     console.log(window.location)
 
     return (
       <div className="availableapps">
-        <h1>Available Apps</h1>
+        <h1>BloxOne API</h1>
             {listItems}
       </div>
     )

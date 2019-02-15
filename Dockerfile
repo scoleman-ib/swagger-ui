@@ -20,8 +20,8 @@ ENV VALIDATOR_URL "null"
 COPY nginx.conf /etc/nginx/
 
 # copy swagger files to the `/js` folder
-COPY ./dist/* /usr/share/nginx/html/swagdocs/
-COPY ./dist/* /usr/share/nginx/html/swagdocs/swagdocs/
+COPY ./dist/* /usr/share/nginx/html/ENDPOINT/
+COPY ./dist/* /usr/share/nginx/html/ENDPOINT/ENDPOINT/
 COPY ./docker-run.sh /usr/share/nginx/
 
 EXPOSE 8080

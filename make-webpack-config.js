@@ -37,7 +37,7 @@ var commonRules = [
   { test: /\.(txt|yaml)(\?.*)?$/,
     loader: "raw-loader" },
   { test: /\.(png|jpg|jpeg|gif|svg)(\?.*)?$/,
-    loader: "url-loader?limit=10000" },
+    loader: "url-loader?limit=100000" },
   { test: /\.(woff|woff2)(\?.*)?$/,
     loader: "url-loader?limit=100000" },
   { test: /\.(ttf|eot)(\?.*)?$/,
@@ -75,7 +75,7 @@ module.exports = function(rules, options) {
           compress: specialOptions.mangle,
           beautify: !specialOptions.mangle,
         },
-        
+
         sourceMap: true,
       }),
       new webpack.LoaderOptionsPlugin({
